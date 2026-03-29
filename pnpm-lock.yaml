@@ -35,6 +35,9 @@ importers:
       expo-image:
         specifier: 55.0.7-canary-20260327-0789fbc
         version: 55.0.7-canary-20260327-0789fbc(expo@55.0.10-canary-20260327-0789fbc)(react-native-web@0.21.2(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-native@0.83.4(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0)
+      expo-linear-gradient:
+        specifier: 55.0.10-canary-20260327-0789fbc
+        version: 55.0.10-canary-20260327-0789fbc(expo@55.0.10-canary-20260327-0789fbc)(react-native@0.83.4(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0)
       expo-linking:
         specifier: 55.0.10-canary-20260327-0789fbc
         version: 55.0.10-canary-20260327-0789fbc(expo@55.0.10-canary-20260327-0789fbc)(react-native@0.83.4(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0)(typescript@5.9.3)
@@ -1725,6 +1728,13 @@ packages:
     peerDependencies:
       expo: 55.0.10-canary-20260327-0789fbc
       react: '*'
+
+  expo-linear-gradient@55.0.10-canary-20260327-0789fbc:
+    resolution: {integrity: sha512-jOLUVEFv8/xrt0IaGl98uTCAXVc1m+WesOuK8NDDcZAK6fT8iQcLjo8uBJo2KqWohjA9mmiECatehkt7xdXxAA==}
+    peerDependencies:
+      expo: 55.0.10-canary-20260327-0789fbc
+      react: '*'
+      react-native: '*'
 
   expo-linking@55.0.10-canary-20260327-0789fbc:
     resolution: {integrity: sha512-nG8ggiphfiAvZ3LrF6yQbk2hXMJm7Pb+0pjrrx6z/y/nPYO01zBkfc3gWcAFH2hijtvHE0wu+YPOuCNkkZWzzw==}
@@ -5219,6 +5229,12 @@ snapshots:
     dependencies:
       expo: 55.0.10-canary-20260327-0789fbc(@babel/core@7.29.0)(@expo/dom-webview@55.0.4-canary-20260327-0789fbc)(@expo/metro-runtime@55.0.8-canary-20260327-0789fbc)(expo-router@55.0.9-canary-20260327-0789fbc)(react-dom@19.2.0(react@19.2.0))(react-native@0.83.4(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0)(typescript@5.9.3)
       react: 19.2.0
+
+  expo-linear-gradient@55.0.10-canary-20260327-0789fbc(expo@55.0.10-canary-20260327-0789fbc)(react-native@0.83.4(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0):
+    dependencies:
+      expo: 55.0.10-canary-20260327-0789fbc(@babel/core@7.29.0)(@expo/dom-webview@55.0.4-canary-20260327-0789fbc)(@expo/metro-runtime@55.0.8-canary-20260327-0789fbc)(expo-router@55.0.9-canary-20260327-0789fbc)(react-dom@19.2.0(react@19.2.0))(react-native@0.83.4(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0)(typescript@5.9.3)
+      react: 19.2.0
+      react-native: 0.83.4(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0)
 
   expo-linking@55.0.10-canary-20260327-0789fbc(expo@55.0.10-canary-20260327-0789fbc)(react-native@0.83.4(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.0))(react@19.2.0)(typescript@5.9.3):
     dependencies:
