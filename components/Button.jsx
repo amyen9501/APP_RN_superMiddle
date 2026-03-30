@@ -1,7 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import { StyleSheet, TouchableOpacity } from "react-native";
 
-
 export default function Button(){
   return(
     <>

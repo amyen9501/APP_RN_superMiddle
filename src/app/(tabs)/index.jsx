@@ -26,7 +26,6 @@ const list = [
 ]
 
 
-
 export default function Index() {
   return (
     <View style={styles.container}>
@@ -96,7 +95,6 @@ const styles = StyleSheet.create({
   },
   missionState: {
     flexDirection: "row",
-    //justifyContent: "evenly",
     justifyContent: "center",
     gap: 15,
     marginTop: 20,
@@ -116,9 +114,11 @@ const styles = StyleSheet.create({
   },
   card: {
     backgroundColor: "#fff",
+    width:"100%",
     padding: 20,
     borderRadius: 10,
     borderWidth: 1.5,
-    margin: 10,
+    borderColor:'#bcbbbb',
+    marginBottom:15,
   }
 });
