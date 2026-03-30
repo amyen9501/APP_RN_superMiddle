@@ -4,8 +4,13 @@ import { Tabs } from "expo-router";
 export default function Layout() {
     return (
         <Tabs screenOptions={{
+            headerTitleAlign:"center",
+            headerTitleStyle:{
+                color:"#f3acc1",
+                fontSize:24,
+            },
             tabBarStyle: { height: 100, paddingTop: 10 },
-            tabBarLabelStyle: { marginTop: 6, fontSize: 12 },
+            tabBarLabelStyle: { marginTop: 6, fontSize: 12},
             tabBarActiveTintColor: 'white',
             tabBarInactiveTintColor: '#f3acc1',
             tabBarActiveBackgroundColor: '#f3acc1',
@@ -26,21 +31,29 @@ export default function Layout() {
                     )
                 }} />
             <Tabs.Screen
-                name="calender"
+                name="calendar"
                 options={{
                     title: "日曆",
-
+                    tabBarIcon: ({ focused }) => (
+                        <Ionicons name="calendar-outline" size={30} color={focused ? "white" : "#f3acc1"} />
+                    )
                 }} />
             <Tabs.Screen
                 name="class"
                 options={{
                     title: "分類",
+                    tabBarIcon: ({ focused }) => (
+                        <Ionicons name="folder-outline" size={30} color={focused ? "white" : "#f3acc1"} />
+                    )
                 }}
             />
             <Tabs.Screen
                 name="setting"
                 options={{
                     title: "設定",
+                    tabBarIcon: ({ focused }) => (
+                        <Ionicons name="settings-outline" size={30} color={focused ? "white" : "#f3acc1"} />
+                    )
                 }} />
         </Tabs>
     );
