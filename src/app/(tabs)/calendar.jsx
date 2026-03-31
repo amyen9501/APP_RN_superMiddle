@@ -5,6 +5,7 @@ export default function Calendar(){
         <View style={{flex:1, alignItems:"center", justifyContent:"center"}}>
             <Text>Calender</Text>
             <Text>trying</Text>
+            <Text>trying2</Text>
         </View>
     )
     
