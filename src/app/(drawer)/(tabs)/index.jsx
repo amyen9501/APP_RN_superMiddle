@@ -1,6 +1,6 @@
 import { LinearGradient } from "expo-linear-gradient";
 import { FlatList, ScrollView, StatusBar, StyleSheet, Text, View } from "react-native";
-import Button from "../../../components/Button";
+import Button from "../../../../components/Button";
 
 const list = [
   {
