@@ -11,10 +11,9 @@ LocaleConfig.locales['zh'] = {
 };
 LocaleConfig.defaultLocale = 'zh';
 
-// 必須使用 export default，Expo Router 才能抓到
 export default function CalendarScreen() {
  
-  console.log("日曆頁面載入中"); // 看終端機有沒有印出這行
+
 
   const [selected, setSelected] = useState('2026-03-31');
 

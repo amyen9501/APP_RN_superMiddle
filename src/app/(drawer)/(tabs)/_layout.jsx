@@ -1,9 +1,12 @@
 import { Ionicons } from "@expo/vector-icons";
+import { DrawerToggleButton } from "@react-navigation/drawer";
 import { Tabs } from "expo-router";
 
 export default function Layout() {
     return (
         <Tabs screenOptions={{
+            headerLeft:()=>
+            <DrawerToggleButton tintColor="#a0a0a0"/>,
             headerTitleAlign:"center",
             headerTitleStyle:{
                 color:"#f3acc1",
