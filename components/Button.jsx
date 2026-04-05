@@ -1,14 +1,19 @@
 import { Ionicons } from "@expo/vector-icons";
 import { StyleSheet, TouchableOpacity } from "react-native";
+import useTaskStore from '../store/useTaskStore';
 
-export default function Button(){
-  return(
+export default function Button({ setEditTaskData }) {
+  const setModalVisible = useTaskStore((state) => state.setModalVisible);
+  return (
     <>
-    <TouchableOpacity 
-    onPress={() => console.log("Button Pressed")}
-    style={styles.button}>
-    <Ionicons name="add" size={30} color="white" />
-    </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          setEditTaskData(null);
+          setModalVisible(true);
+        }}
+        style={styles.button}>
+        <Ionicons name="add" size={30} color="white" />
+      </TouchableOpacity>
     </>
   )
 }
@@ -17,8 +22,8 @@ export default function Button(){
 const styles = StyleSheet.create({
   button: {
     position: "absolute",
-    right:30,
-    bottom:30,
+    right: 30,
+    bottom: 30,
     width: 60,
     height: 60,
     justifyContent: "center",
