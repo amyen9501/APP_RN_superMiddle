@@ -1,32 +1,20 @@
+import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
-import { FlatList, ScrollView, StatusBar, StyleSheet, Text, View } from "react-native";
+import React, { useState } from "react";
+import { ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import AddTaskModal from "../../../../components/AddTaskModal";
 import Button from "../../../../components/Button";
-
-const list = [
-  {
-    id: 1,
-    name: "John Doe",
-    age: 30
-  },
-  {
-    id: 2,
-    name: "Jane Doe",
-    age: 25
-  },
-  {
-    id: 3,
-    name: "Bob Smith",
-    age: 40
-  },
-  {
-    id: 4,
-    name: "Alice Johnson",
-    age: 35
-  }
-]
+import useTaskStore from "../../../../store/useTaskStore";
 
 
 export default function Index() {
+  const { tasks, filterStatus, setFilterStatus, toggleTaskStatus,setModalVisible } = useTaskStore();
+  const [editTaskData, setEditTaskData] = useState(null);
+  const filterTask = tasks.filter(task => {
+    if (filterStatus === '全部') return true;
+    return task.status === filterStatus;
+  })
+
   return (
     <View style={styles.container}>
       <View style={styles.missionBox}>
@@ -52,19 +40,48 @@ export default function Index() {
         </LinearGradient>
 
       </View>
-      <ScrollView>
-        <FlatList
-          data={list}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => (
-            <View style={styles.card}>
-              <Text>Name: {item.name}</Text>
-              <Text>Age: {item.age}</Text>
+      <View style={styles.tabContainer}>
+        {['全部', '進行中', '已完成'].map((status) => (
+          <TouchableOpacity
+            key={status}
+            style={[styles.tabButton, filterStatus === status && styles.activeTab]}
+            onPress={() => setFilterStatus(status)}
+          >
+            <Text style={[styles.tabText, filterStatus === status && styles.activeTabText]}>{status}</Text>
+          </TouchableOpacity>
+        ))}
+      </View>
+      <ScrollView contentContainerStyle={styles.listContainer}>
+        {filterTask.map((item) => (
+          <View key={item.id} style={styles.taskCard}>
+            <TouchableOpacity
+              onPress={() => toggleTaskStatus(item.id)}>
+              <Ionicons
+                name={item.status === '已完成' ? "checkmark-circle" : "ellipse-outline"}
+                size={28}
+                color={item.status === '已完成' ? "#a28fffdc" : "#f3acc1"}
+              />
+            </TouchableOpacity>
+            <View style={styles.taskText}>
+              <Text style={[styles.taskTitle, item.status === '已完成' && styles.finishTask]}>{item.title}</Text>
+              {item.content ? <Text style={styles.taskContent}>{item.content}</Text> : null}
+              <Text style={styles.taskDetail}>{item.category} | 截止日期：{item.date}</Text>
             </View>
-          )}
-        />
+            <TouchableOpacity 
+            style={styles.editbutton}
+            onPress={() => {
+              setEditTaskData(item);
+              setModalVisible(true);
+            }}>
+              <Ionicons name="create-outline" size={24} color="#f3acc1" style={{ marginRight: 10 }} />
+            </TouchableOpacity>
+          </View>
+        ))}
       </ScrollView>
-      <Button />
+      <AddTaskModal
+        editTaskData={editTaskData}
+        setEditTaskData={setEditTaskData} />
+      <Button setEditTaskData={setEditTaskData}/>
     </View>
   );
 }
@@ -112,13 +129,58 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 16,
   },
-  card: {
-    backgroundColor: "#fff",
-    width:"100%",
-    padding: 20,
+  tabContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    gap: 20,
+  },
+  tabButton: {
+    paddingVertical: 10,
+    paddingHorizontal: 10,
     borderRadius: 10,
+    marginBottom: 10,
+    backgroundColor: '#ffd1dc',
+  },
+  activeTab: {
+    backgroundColor: '#a28fffdc',
+  },
+  tabText: {
+    color: '#fff',
+    fontWeight: 'bold',
+  },
+  listContainer: {
+    flex: 1,
+  },
+  taskCard: {
+    backgroundColor: "#fff",
+    borderColor: '#ababab',
     borderWidth: 1.5,
-    borderColor:'#bcbbbb',
-    marginBottom:15,
-  }
+    borderRadius: 10,
+    padding: 20,
+    marginVertical: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent:'space-between',
+  },
+  taskText:{
+    marginLeft: 10,
+    width:'80%',
+    //backgroundColor:'#c0c0c0',
+  },
+  taskTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  taskContent:{
+    marginVertical:5,
+    color: '#666',
+    fontSize: 16,
+  },
+  taskDetail: {
+    marginTop: 5,
+  },
+  editbutton:{
+
+  },
+
 });
