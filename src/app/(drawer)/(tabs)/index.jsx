@@ -15,6 +15,10 @@ export default function Index() {
     return task.status === filterStatus;
   })
 
+  const allCount = tasks.length;
+  const activeCount = tasks.filter(task => task.status === '進行中').length;
+  const finishCount = tasks.filter(task => task.status === '已完成').length;
+
   return (
     <View style={styles.container}>
       <View style={styles.missionBox}>
@@ -27,12 +31,15 @@ export default function Index() {
           <Text style={styles.missionText}>我的任務</Text>
           <View style={styles.missionState}>
             <View style={styles.missionStateBox}>
+              <Text style={styles.missionStateNum}>{allCount}</Text>
               <Text style={styles.missionStateBoxText}>全部</Text>
             </View>
             <View style={styles.missionStateBox}>
+              <Text style={styles.missionStateNum}>{activeCount}</Text>
               <Text style={styles.missionStateBoxText}>進行中</Text>
             </View>
             <View style={styles.missionStateBox}>
+              <Text style={styles.missionStateNum}>{finishCount}</Text>
               <Text style={styles.missionStateBoxText}>已完成</Text>
             </View>
 
@@ -65,7 +72,11 @@ export default function Index() {
             <View style={styles.taskText}>
               <Text style={[styles.taskTitle, item.status === '已完成' && styles.finishTask]}>{item.title}</Text>
               {item.content ? <Text style={styles.taskContent}>{item.content}</Text> : null}
-              <Text style={styles.taskDetail}>{item.category} | 截止日期：{item.date}</Text>
+              <View style={{flexDirection:'row',alignItems:'center'}}>
+                <Text style={styles.taskDetailTag}>#{item.category}</Text>
+                <Text style={styles.taskDetailDate}> 截止日期：{item.date} </Text>
+              </View>
+
             </View>
             <TouchableOpacity 
             style={styles.editbutton}
@@ -118,11 +129,16 @@ const styles = StyleSheet.create({
   },
   missionStateBox: {
     width: "28%",
-    height: "100%",
+    height: "90%",
     backgroundColor: "#ffffff58",
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 5,
+  },
+  missionStateNum:{
+    color:'white',
+    fontWeight:'bold',
+    fontSize:30,
   },
   missionStateBoxText: {
     color: "#fff",
@@ -176,8 +192,24 @@ const styles = StyleSheet.create({
     color: '#666',
     fontSize: 16,
   },
-  taskDetail: {
+  taskDetailTag: {
+    color:'#2c2a39',
+    backgroundColor:'#ffe1e8',
+    paddingVertical:4,
+    paddingHorizontal:8,
+    borderRadius:20,
     marginTop: 5,
+    fontWeight:'bold',
+  },
+  taskDetailDate: {
+    marginLeft:5,
+    color:'#2c2a39',
+    backgroundColor:'#d6cffc',
+    paddingVertical:4,
+    paddingHorizontal:8,
+    borderRadius:20,
+    marginTop: 5,
+    fontWeight:'bold',
   },
   editbutton:{
 
