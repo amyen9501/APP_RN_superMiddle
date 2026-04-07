@@ -58,7 +58,7 @@ export default function Index() {
           </TouchableOpacity>
         ))}
       </View>
-      <ScrollView contentContainerStyle={styles.listContainer}>
+      <ScrollView style={{ flex: 1 }} contentContainerStyle={styles.listContainer} showsHorizontalScrollIndicator={false}>
         {filterTask.map((item) => (
           <View key={item.id} style={styles.taskCard}>
             <TouchableOpacity
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   listContainer: {
-    flex: 1,
+    paddingBottom: 50,
   },
   taskCard: {
     backgroundColor: "#fff",
