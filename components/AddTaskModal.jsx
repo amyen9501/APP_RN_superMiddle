@@ -103,18 +103,18 @@ const [showDatePicker, setShowDatePicker] = useState(false);
 >
     <Ionicons name="calendar" size={20} color="#f3acc1" />
     <Text style={styles.dateDisplay}>
-        {date.toISOString().split('T')[0]} {/* 這裡會顯示如 2026-03-31 */}
+        {date.toISOString().split('T')[0]} {}
     </Text>
 </TouchableOpacity>
 
-{/* 真正的日曆元件（點擊上方才會彈出） */}
+{}
 {showDatePicker && (
     <DateTimePicker
         value={date}
         mode="date"
         display="default"
         onChange={(event, selectedDate) => {
-            setShowDatePicker(false); // 選完自動關閉
+            setShowDatePicker(false); 
             if (selectedDate) setDate(selectedDate);
         }}
     />

@@ -18,7 +18,7 @@ export default function CalendarScreen() {
 
 const {tasks}= useTaskStore();
  
-  const today = new Date().toISOString().split('T')[0]; // 取得今天的日期字串
+  const today = new Date().toISOString().split('T')[0]; 
   const [selected, setSelected] = useState(today);
 
     const taskData = useMemo(() => {
@@ -66,11 +66,11 @@ const {tasks}= useTaskStore();
           <Text style={styles.listTitle}>{selected} 的任務</Text>
 
          {taskData[selected] ? (
-            taskData[selected].map((task) => ( // 修正 3: 將 item 改為 task 以配合下方的 task.id
+            taskData[selected].map((task) => (
               <View key={task.id} style={styles.taskItem}>
                 <View style={styles.taskInfo}>
                   <Text style={[
-                    styles.listTitle, 
+                    styles.listTitleText, 
                     task.status === '已完成' && styles.completedText
                   ]}>
                     • {task.title}
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     minHeight: 120,
     elevation: 4,
   },
-  listTitle: { // 改個名字，避免跟任務標題衝突
+  listTitle: { 
     fontSize: 18, 
     fontWeight: 'bold', 
     marginBottom: 15, 
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   taskInfo: { flex: 1 },
-  taskTitleText: { // 任務本身的標題
+  taskTitleText: {
     fontSize: 16,
     fontWeight: '600',
     color: '#333',
