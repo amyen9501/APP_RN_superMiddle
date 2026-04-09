@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
+import useTaskStore from "../../../../store/useTaskStore";
 
-// 設定日曆語系
+
 LocaleConfig.locales['zh'] = {
   monthNames: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'],
   dayNames: ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'],
@@ -15,12 +16,25 @@ export default function CalendarScreen() {
  
 
 
-  const [selected, setSelected] = useState('2026-03-31');
+const {tasks}= useTaskStore();
+ 
+  const today = new Date().toISOString().split('T')[0]; // 取得今天的日期字串
+  const [selected, setSelected] = useState(today);
 
-  // 測試資料
-  const taskData = {
-    '2026-03-31': ['今天要交 APP 期中作業', '晚上跟同學討論程式'],
-  };
+    const taskData = useMemo(() => {
+    return tasks.reduce((acc, task) => {
+      const date = task.date;
+      if (date && date !== '無') {
+        if (!acc[date]) {
+          acc[date] = [];
+        }
+        acc[date].push(task); 
+      }
+      return acc;
+    }, {});
+  }, [tasks]);
+
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -49,16 +63,35 @@ export default function CalendarScreen() {
         </View>
 
         <View style={styles.taskCard}>
-          <Text style={styles.taskTitle}>{selected} 的任務</Text>
-          {taskData[selected] ? (
-            taskData[selected].map((item, index) => (
-              <Text key={index} style={styles.taskItem}>• {item}</Text>
+          <Text style={styles.listTitle}>{selected} 的任務</Text>
+
+         {taskData[selected] ? (
+            taskData[selected].map((task) => ( // 修正 3: 將 item 改為 task 以配合下方的 task.id
+              <View key={task.id} style={styles.taskItem}>
+                <View style={styles.taskInfo}>
+                  <Text style={[
+                    styles.listTitle, 
+                    task.status === '已完成' && styles.completedText
+                  ]}>
+                    • {task.title}
+                  </Text>
+                  <Text style={styles.categoryTag}>#{task.category}</Text>
+                </View>
+                <Text style={[
+                   styles.statusTag, 
+                   { backgroundColor: task.status === '已完成' ? '#d1c4e9' : '#ffd1dc' }
+                ]}>
+                  {task.status}
+                </Text>
+              </View>
             ))
           ) : (
-            <Text style={styles.noTaskText}>這天目前沒有安排任務</Text>
+            <View style={styles.emptyBox}>
+              <Text style={styles.noTaskText}>這天目前沒有安排任務 ☕</Text>
+            </View>
           )}
         </View>
-
+         
       </ScrollView>
     </SafeAreaView>
   );
@@ -84,8 +117,47 @@ const styles = StyleSheet.create({
     minHeight: 120,
     elevation: 4,
   },
-  taskTitle: { fontSize: 18, fontWeight: 'bold', marginBottom: 10, color: '#f3acc1' },
-  taskItem: { fontSize: 16, color: '#555', marginBottom: 5 },
-  noTaskText: { color: '#bbb', textAlign: 'center', marginTop: 20 }
+  listTitle: { // 改個名字，避免跟任務標題衝突
+    fontSize: 18, 
+    fontWeight: 'bold', 
+    marginBottom: 15, 
+    color: '#f3acc1' 
+  },
+  taskItem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    padding: 15,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#eee',
+    marginBottom: 10,
+  },
+  taskInfo: { flex: 1 },
+  taskTitleText: { // 任務本身的標題
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#333',
+  },
+  completedText: {
+    textDecorationLine: 'line-through',
+    color: '#bbb',
+  },
+  categoryTag: {
+    fontSize: 12,
+    color: '#a28fff',
+    marginTop: 4,
+  },
+  statusTag: {
+    fontSize: 11,
+    color: '#fff',
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 10,
+    overflow: 'hidden',
+    fontWeight: 'bold',
+  },
+  emptyBox: { alignItems: 'center', marginTop: 20 },
+  noTaskText: { color: '#999', fontSize: 16 },
 });
-
