@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "scheme": "acme",
+    "plugins": [
+      "expo-router"
+    ],
+    "name": "APP_RN_superMiddle",
+    "slug": "APP_RN_superMiddle"
+  }
+}
