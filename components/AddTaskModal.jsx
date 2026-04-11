@@ -13,9 +13,9 @@ export default function AddTaskModal({ editTaskData, setEditTaskData }) {
     const [date, setDate] = useState(new Date());
     const [selectedCate, setSelectedCate] = useState(null);
     const dropdownData = categories.map(cat => ({ label: cat, value: cat }));
-    
 
-const [showDatePicker, setShowDatePicker] = useState(false);
+
+    const [showDatePicker, setShowDatePicker] = useState(false);
 
     useEffect(() => {
         if (isModalVisible) {
@@ -24,7 +24,7 @@ const [showDatePicker, setShowDatePicker] = useState(false);
                 setContent(editTaskData.content || '');
                 setSelectedCate(editTaskData.category || null);
                 setDate(editTaskData.date ? new Date(editTaskData.date) : new Date());
-            
+
             } else {
                 setTitle('');
                 setContent('');
@@ -49,8 +49,8 @@ const [showDatePicker, setShowDatePicker] = useState(false);
     const formatDate = (date) => {
         return date.toISOString().split('T')[0];
     };
-     
- 
+
+
 
     const saveButton = () => {
         if (!title || !selectedCate) return alert('請填寫標題並選擇分類');
@@ -59,10 +59,10 @@ const [showDatePicker, setShowDatePicker] = useState(false);
             title: title,
             content: content,
             category: selectedCate,
-            date: dateString 
+            date: dateString
         };
         if (editTaskData) {
-           updateTask(editTaskData.id, taskPayload);
+            updateTask(editTaskData.id, taskPayload);
         } else {
             addTask(taskPayload);
         }
@@ -71,9 +71,9 @@ const [showDatePicker, setShowDatePicker] = useState(false);
         setSelectedCate(null);
         setTitle('');
         setContent('');
-        setDate(new Date()); 
+        setDate(new Date());
     }
-    if (!isModalVisible) return null; 
+    if (!isModalVisible) return null;
 
 
     
@@ -109,18 +109,18 @@ const [showDatePicker, setShowDatePicker] = useState(false);
     </Text>
 </TouchableOpacity>
 
-{}
-{showDatePicker && (
-    <DateTimePicker
-        value={date}
-        mode="date"
-        display="default"
-        onChange={(event, selectedDate) => {
-            setShowDatePicker(false); 
-            if (selectedDate) setDate(selectedDate);
-        }}
-    />
-)}
+                    { }
+                    {showDatePicker && (
+                        <DateTimePicker
+                            value={date}
+                            mode="date"
+                            display="default"
+                            onChange={(event, selectedDate) => {
+                                setShowDatePicker(false);
+                                if (selectedDate) setDate(selectedDate);
+                            }}
+                        />
+                    )}
                     <Text style={styles.newTaskText2}>選擇分類</Text>
                     <Dropdown
                         style={styles.dropdown}
@@ -198,6 +198,7 @@ const styles = StyleSheet.create({
         paddingVertical: 15,
         marginHorizontal: 20,
         borderRadius: 10,
+        flex:1
     },
     addbuttonText: {
         color: '#fff',
@@ -209,9 +210,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#fd4e4e',
         justifyContent: 'center',
         alignItems: 'center',
-        paddingVertical: 15,
-        marginHorizontal: 20,
+        marginLeft: 20,
         borderRadius: 10,
+        flex:1
     },
     cancelButton: {
         width: 50,
@@ -234,8 +235,9 @@ const styles = StyleSheet.create({
     },
     buttonGroup: {
         marginTop: 20,
+        flexDirection:'row'
     },
-     datePickerButton: {
+    datePickerButton: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -249,19 +251,19 @@ const styles = StyleSheet.create({
         color: '#333',
     },
     datePickerBox: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#f9f9f9',
-    marginHorizontal: 20,
-    padding: 12,
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: '#eee',
-},
-dateDisplay: {
-    marginLeft: 10,
-    fontSize: 16,
-    color: '#333',
-},
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: '#f9f9f9',
+        marginHorizontal: 20,
+        padding: 12,
+        borderRadius: 10,
+        borderWidth: 1,
+        borderColor: '#eee',
+    },
+    dateDisplay: {
+        marginLeft: 10,
+        fontSize: 16,
+        color: '#333',
+    },
 
 });
