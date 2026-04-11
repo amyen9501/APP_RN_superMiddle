@@ -76,8 +76,10 @@ const [showDatePicker, setShowDatePicker] = useState(false);
     if (!isModalVisible) return null; 
 
 
+    
     return (
         <Modal visible={isModalVisible} animationType="slide" transparent={true}>
+          
             <View style={styles.Card}>
                 <View style={styles.modal}>
                     <View style={styles.top}>
@@ -93,9 +95,9 @@ const [showDatePicker, setShowDatePicker] = useState(false);
 
                     </View>
                     <Text style={styles.newTaskText2}>任務標題</Text>
-                    <TextInput style={styles.TaskInput} placeholder="輸入任務標題..." value={title} onChangeText={setTitle} />
+                    <TextInput style={styles.TaskInput} placeholder="輸入任務標題..." value={title} onChangeText={setTitle} autoFocus={true} />
                     <Text style={styles.newTaskText2}>任務描述</Text>
-                    <TextInput style={styles.TaskInput} placeholder="輸入任務描述..." value={content} onChangeText={setContent} />
+                    <TextInput style={styles.TaskInput} placeholder="輸入任務描述..." value={content} onChangeText={setContent} autoFocus={true}/>
 <Text style={styles.newTaskText}>截止日期</Text>
 <TouchableOpacity 
     onPress={() => setShowDatePicker(true)} 
